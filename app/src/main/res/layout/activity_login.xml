@@ -10,7 +10,7 @@
     tools:context=".LoginActivity">
 
     <TextView
-        android:id="@+id/login_app_name"
+        android:id="@+id/login_tv_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -22,10 +22,10 @@
         android:transitionName="trans_app_name" />
 
     <TextView
-        android:id="@+id/login_caption"
+        android:id="@+id/login_tv_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="36dp"
         android:fontFamily="@font/bungee_regular"
         android:includeFontPadding="false"
         android:text="Halo Sobat,\nSelamat Datang"
@@ -34,15 +34,16 @@
         android:transitionName="trans_caption" />
 
     <TextView
-        android:id="@+id/login_desc"
+        android:id="@+id/login_tv_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="36dp"
         android:fontFamily="@font/poppins_light"
         android:includeFontPadding="false"
         android:text="Masuk untuk melanjutkan"
         android:textColor="@color/textPrimary"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:transitionName="trans_desc" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,11 +54,12 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/login_username"
+            android:id="@+id/login_til_username"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username"
+            android:transitionName="trans_username"
             app:boxStrokeColor="@color/textPrimary"
             app:hintTextColor="@color/textPrimary">
 
@@ -68,17 +70,18 @@
                 android:includeFontPadding="false"
                 android:inputType="text"
                 android:textColor="@color/textPrimary"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/login_password"
+            android:id="@+id/login_til_password"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:hint="Password"
+            android:transitionName="trans_password"
             app:boxStrokeColor="@color/textPrimary"
             app:hintTextColor="@color/textPrimary"
             app:passwordToggleEnabled="true">
@@ -90,11 +93,12 @@
                 android:includeFontPadding="false"
                 android:inputType="textPassword"
                 android:textColor="@color/textPrimary"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/login_btn_forget_password"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -108,27 +112,29 @@
             android:textSize="14sp" />
 
         <Button
+            android:id="@+id/login_btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
             android:layout_marginTop="8dp"
             android:background="@color/textPrimary"
             android:fontFamily="@font/poppins_medium"
             android:includeFontPadding="false"
             android:text="Masuk"
-            android:textColor="@color/yellow" />
+            android:textColor="@color/yellow"
+            android:transitionName="trans_btn_submit" />
 
         <Button
+            android:id="@+id/login_btn_sign_up"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
             android:layout_margin="4dp"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/poppins_medium"
             android:includeFontPadding="false"
+            android:onClick="callSignUpActivity"
             android:text="Pengguna baru? Buat akun"
             android:textColor="@color/textPrimary"
-            android:textSize="14sp" />
+            android:transitionName="trans_btn_submit2" />
 
     </LinearLayout>
 
