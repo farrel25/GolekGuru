@@ -3,7 +3,9 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="TextPrimary">#282948</color>
-    <color name="Yellow">#FEBE02</color>
-    <color name="DarkYellow">#695013</color>
+    <color name="textPrimary">#282948</color>
+    <color name="yellow">#FEBE02</color>
+    <color name="darkYellow">#695013</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey">#F4F5F6</color>
 </resources>
