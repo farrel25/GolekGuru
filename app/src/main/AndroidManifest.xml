@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".SignUpActivity2"
+            android:theme="@style/ThemeAuth" />
+        <activity
             android:name=".SignUpActivity"
             android:theme="@style/ThemeAuth" />
         <activity

@@ -42,6 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
     public void callLoginActivity(View view) {
         Intent loginActivity = new Intent(SignUpActivity.this, LoginActivity.class);
 
+        // Add shared Animation
         Pair[] pairs = new Pair[7];
         pairs[0] = new Pair<View, String>(tvAppName, "trans_app_name");
         pairs[1] = new Pair<View, String>(tvCaption, "trans_caption");
@@ -58,5 +59,25 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void callSignUpActivity2(View view) {
+        Intent signUpActivity2 = new Intent(SignUpActivity.this, SignUpActivity2.class);
+
+        // pass signup data on this activity to second signup activity
+        signUpActivity2.putExtra("fullName", tilFullName.getEditText().getText().toString().trim());
+        signUpActivity2.putExtra("userName", tilUsername.getEditText().getText().toString().trim());
+        signUpActivity2.putExtra("email", tilEmail.getEditText().getText().toString().trim());
+        signUpActivity2.putExtra("phone", tilPhoneNumber.getEditText().getText().toString().trim());
+        signUpActivity2.putExtra("password", tilPassword.getEditText().getText().toString().trim());
+
+        // Add shared Animation
+        Pair[] pairs = new Pair[5];
+        pairs[0] = new Pair<View, String>(tvAppName, "trans_app_name");
+        pairs[1] = new Pair<View, String>(tvCaption, "trans_caption");
+        pairs[2] = new Pair<View, String>(tvDesc, "trans_desc");
+        pairs[3] = new Pair<View, String>(btnNext, "trans_btn_submit");
+        pairs[4] = new Pair<View, String>(btnLogin, "trans_btn_submit2");
+
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SignUpActivity.this, pairs);
+
+        startActivity(signUpActivity2, options.toBundle());
     }
 }
