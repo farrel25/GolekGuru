@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "822485641278",
+    "project_id": "golekguru-1acd4",
+    "storage_bucket": "golekguru-1acd4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822485641278:android:223fa1fcfc3a4ee7f6496f",
+        "android_client_info": {
+          "package_name": "com.farrel.corporation.golekguru"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822485641278-oetm9josv0agjr4l3bbo63ihb3nvpcok.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjr_PQUyMHY39rDoEPBJwNSmcmJWlKoEw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822485641278-oetm9josv0agjr4l3bbo63ihb3nvpcok.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
