@@ -2,9 +2,12 @@ package com.farrel.corporation.golekguru;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Pair;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -37,7 +40,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent loginActivity = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(loginActivity);
+
+                Pair[] pairs = new Pair[2];
+                pairs[0] = new Pair<View, String>(tvAppName, "trans_app_name");
+                pairs[1] = new Pair<View, String>(tvAppCaption, "trans_caption");
+
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, pairs);
+
+                startActivity(loginActivity, options.toBundle());
                 finish();
             }
         }, 3500);
