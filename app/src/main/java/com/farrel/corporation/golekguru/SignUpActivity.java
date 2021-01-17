@@ -98,6 +98,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         if (val.isEmpty()) {
             tilFullName.setError("Nama lengkap wajib diisi");
+            // tilFullName.requestFocus();
             return false;
         } else {
             tilFullName.setError(null);
@@ -162,7 +163,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private boolean validatePhoneNumber() {
         String val = tilPhoneNumber.getEditText().getText().toString().trim();
-        String checkPhone = "[0-9]";
+        String checkPhone = "^?[0-9]{8,20}$";
         /**
          * checkSpaces regex (regular expression) structure
          * [a-zA-Z0-9._-]   => you can write any small a - small z, capital A - Capital Z, number 0 - 9, and "." "_" "-" characters

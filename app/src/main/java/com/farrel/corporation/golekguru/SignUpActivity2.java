@@ -15,6 +15,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.Calendar;
 
 public class SignUpActivity2 extends AppCompatActivity {
@@ -24,6 +27,11 @@ public class SignUpActivity2 extends AppCompatActivity {
     RadioGroup rgGender;
     RadioButton rbGender;
     DatePicker dpBirthDate;
+
+    String fullName, username, email, phone, password, gender, birthDate;
+
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +50,11 @@ public class SignUpActivity2 extends AppCompatActivity {
         btnLogin = findViewById(R.id.sign_up2_btn_login);
 
         // get passed data from SignupActivity
-        String fullName = getIntent().getStringExtra("fullName");
-        String userName = getIntent().getStringExtra("userName");
-        String email = getIntent().getStringExtra("email");
-        String phone = getIntent().getStringExtra("phone");
-        String password = getIntent().getStringExtra("password");
+        fullName = getIntent().getStringExtra("fullName");
+        username = getIntent().getStringExtra("userName");
+        email = getIntent().getStringExtra("email");
+        phone = getIntent().getStringExtra("phone");
+        password = getIntent().getStringExtra("password");
     }
 
     public void signUp(View view) {
@@ -60,13 +68,25 @@ public class SignUpActivity2 extends AppCompatActivity {
 
         // get selected Gender data
         rbGender = findViewById(rgGender.getCheckedRadioButtonId());
-        String _gender = rbGender.getText().toString();
+        gender = rbGender.getText().toString();
 
         // get birth Date data
         int birthDay = dpBirthDate.getDayOfMonth();
-        int birthMonth = dpBirthDate.getMonth();
+        int birthMonth = dpBirthDate.getMonth() + 1;
         int birthYear = dpBirthDate.getYear();
-        String _birthDate = birthDay + "-" + birthMonth + "-" + birthYear;
+        birthDate = birthDay + "-" + birthMonth + "-" + birthYear;
+
+        // insert data to firebase
+        rootNode = FirebaseDatabase.getInstance();
+        reference = rootNode.getReference("users");
+
+        UserHelper newUser = new UserHelper(fullName,username, email, phone, password, gender, birthDate);
+        reference.child(username).setValue(newUser);
+
+        // call login screen
+        Intent loginActivity = new Intent(SignUpActivity2.this, LoginActivity.class);
+        startActivity(loginActivity);
+        finish();
     }
 
     public void callLoginActivity(View view) {
