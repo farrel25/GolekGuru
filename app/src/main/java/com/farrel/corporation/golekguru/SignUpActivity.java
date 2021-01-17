@@ -59,6 +59,14 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void callSignUpActivity2(View view) {
+        /**
+         * single OR "|" means, it is going to execute all the functions defined inside this if below, one after another
+         * double OR "||" means, either this one or the second one
+         */
+        if (!validateFullname() | !validateUsername() | !validateEmail() | !validatePhoneNumber() | !validatePassword()) {
+            return;
+        }
+
         Intent signUpActivity2 = new Intent(SignUpActivity.this, SignUpActivity2.class);
 
         // pass signup data on this activity to second signup activity
@@ -79,5 +87,130 @@ public class SignUpActivity extends AppCompatActivity {
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SignUpActivity.this, pairs);
 
         startActivity(signUpActivity2, options.toBundle());
+    }
+
+
+    /**
+     * VALIDATION FUNCTION
+     */
+    private boolean validateFullname() {
+        String val = tilFullName.getEditText().getText().toString().trim();
+
+        if (val.isEmpty()) {
+            tilFullName.setError("Nama lengkap wajib diisi");
+            return false;
+        } else {
+            tilFullName.setError(null);
+            tilFullName.setErrorEnabled(false); // to remove some space below its field
+            return true;
+        }
+    }
+
+    private boolean validateUsername() {
+        String val = tilUsername.getEditText().getText().toString().trim();
+        String checkSpaces = "\\A\\w{1,20}\\z";
+        /**
+         * checkSpaces regex (regular expression) structure
+         * A and z  => you can write any capital A till small z
+         * w        => white spaces
+         * {1,20}   => limitation with minimum 1 and maximum 20 characters
+         */
+
+        if (val.isEmpty()) {
+            tilUsername.setError("Username wajib diisi");
+            return false;
+        } else if (val.length() > 20) {
+            tilUsername.setError("Username terlalu banyak karakter");
+            return false;
+        }
+        // if value is not going to match with regex defined before
+        else if (!val.matches(checkSpaces)) {
+            tilUsername.setError("spasi tidak diperbolehkan");
+            return false;
+        } else {
+            tilUsername.setError(null);
+            tilUsername.setErrorEnabled(false); // to remove some space below its field
+            return true;
+        }
+    }
+
+    private boolean validateEmail() {
+        String val = tilEmail.getEditText().getText().toString().trim();
+        String checkEmail = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        /**
+         * checkSpaces regex (regular expression) structure
+         * [a-zA-Z0-9._-]   => you can write any small a - small z, capital A - Capital Z, number 0 - 9, and "." "_" "-" characters
+         * @[a-z]           => must write @ at the beginning, then you can write any small a - small z
+         * \\.              => must write "."
+         * [a-z]            => you can write any small a - small z
+         */
+
+        if (val.isEmpty()) {
+            tilEmail.setError("Email wajib diisi");
+            return false;
+        }
+        // if value is not going to match with regex defined before
+        else if (!val.matches(checkEmail)) {
+            tilEmail.setError("Format email tidak sesuai");
+            return false;
+        } else {
+            tilEmail.setError(null);
+            tilEmail.setErrorEnabled(false); // to remove some space below its field
+            return true;
+        }
+    }
+
+    private boolean validatePhoneNumber() {
+        String val = tilPhoneNumber.getEditText().getText().toString().trim();
+        String checkPhone = "[0-9]";
+        /**
+         * checkSpaces regex (regular expression) structure
+         * [a-zA-Z0-9._-]   => you can write any small a - small z, capital A - Capital Z, number 0 - 9, and "." "_" "-" characters
+         * @[a-z]           => must write @ at the beginning, then you can write any small a - small z
+         * \\.              => must write "."
+         * [a-z]            => you can write any small a - small z
+         */
+
+        if (val.isEmpty()) {
+            tilPhoneNumber.setError("No. hp wajib diisi");
+            return false;
+        }
+        // if value is not going to match with regex defined before
+        else if (!val.matches(checkPhone)) {
+            tilPhoneNumber.setError("Format No. hp tidak sesuai");
+            return false;
+        } else {
+            tilPhoneNumber.setError(null);
+            tilPhoneNumber.setErrorEnabled(false); // to remove some space below its field
+            return true;
+        }
+    }
+
+    private boolean validatePassword() {
+        String val = tilPassword.getEditText().getText().toString().trim();
+        String checkPassword = "^" +
+                //"(?=.*[0-9])" +         //at least 1 digit
+                //"(?=.*[a-z])" +         //at least 1 lower case letter
+                //"(?=.*[A-Z])" +         //at least 1 upper case letter
+                "(?=.*[a-zA-Z])" +      //any letter
+                //"(?=.*[@#$%^&+=])" +    //at least 1 special character
+                "(?=S+$)" +           //no white spaces
+                ".{4,}" +               //at least 4 characters
+                "$";
+
+        if (val.isEmpty()) {
+            tilPassword.setError("Password wajib diisi");
+            return false;
+        }
+        // if value is not going to match with regex defined before
+//        else if (!val.matches(checkPassword)) {
+//            tilPassword.setError("Password minimal memiliki 4 karakter");
+//            return false;
+//        }
+        else {
+            tilPassword.setError(null);
+            tilPassword.setErrorEnabled(false); // to remove some space below its field
+            return true;
+        }
     }
 }

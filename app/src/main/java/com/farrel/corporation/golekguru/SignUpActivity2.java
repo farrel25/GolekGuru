@@ -13,6 +13,9 @@ import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class SignUpActivity2 extends AppCompatActivity {
 
@@ -47,6 +50,23 @@ public class SignUpActivity2 extends AppCompatActivity {
     }
 
     public void signUp(View view) {
+        /**
+         * single OR "|" means, it is going to execute all the functions defined inside this if below, one after another
+         * double OR "||" means, either this one or the second one
+         */
+        if (!validateGender() | !validateBirthDate()) {
+            return;
+        }
+
+        // get selected Gender data
+        rbGender = findViewById(rgGender.getCheckedRadioButtonId());
+        String _gender = rbGender.getText().toString();
+
+        // get birth Date data
+        int birthDay = dpBirthDate.getDayOfMonth();
+        int birthMonth = dpBirthDate.getMonth();
+        int birthYear = dpBirthDate.getYear();
+        String _birthDate = birthDay + "-" + birthMonth + "-" + birthYear;
     }
 
     public void callLoginActivity(View view) {
@@ -63,5 +83,33 @@ public class SignUpActivity2 extends AppCompatActivity {
 
         startActivity(loginActivity, options.toBundle());
         finish();
+    }
+
+
+
+    /**
+     * VALIDATION FUNCTION
+     */
+    public boolean validateGender() {
+        // radioGroup.getCheckedRadioButtonId() == -1 => none of the radio button selected
+        if (rgGender.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(this, "Silahkan pilih jenis kelamin", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean validateBirthDate() {
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        int userBornYear = dpBirthDate.getYear();
+        int isAgeValid = currentYear - userBornYear;
+
+        if (isAgeValid < 6) {
+            Toast.makeText(this, "Umur anda belum mencukupi", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
     }
 }
