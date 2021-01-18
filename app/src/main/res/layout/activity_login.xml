@@ -45,13 +45,12 @@
         android:textSize="14sp"
         android:transitionName="trans_desc" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="16dp"
         android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical">
+        android:focusableInTouchMode="true">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/login_til_username"
@@ -84,7 +83,8 @@
             android:transitionName="trans_password"
             app:boxStrokeColor="@color/textPrimary"
             app:hintTextColor="@color/textPrimary"
-            app:passwordToggleEnabled="true">
+            app:passwordToggleEnabled="true"
+            android:layout_below="@id/login_til_username">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -102,14 +102,15 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_alignParentEnd="true"
             android:layout_margin="4dp"
             android:fontFamily="@font/poppins_regular"
             android:includeFontPadding="false"
             android:text="Lupa Password ?"
             android:textAllCaps="false"
             android:textColor="@color/textPrimary"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:layout_below="@id/login_til_password"/>
 
         <Button
             android:id="@+id/login_btn_login"
@@ -121,7 +122,9 @@
             android:includeFontPadding="false"
             android:text="Masuk"
             android:textColor="@color/yellow"
-            android:transitionName="trans_btn_submit" />
+            android:transitionName="trans_btn_submit"
+            android:onClick="login"
+            android:layout_below="@id/login_btn_forget_password"/>
 
         <Button
             android:id="@+id/login_btn_sign_up"
@@ -134,8 +137,24 @@
             android:onClick="callSignUpActivity"
             android:text="Pengguna baru? Buat akun"
             android:textColor="@color/textPrimary"
-            android:transitionName="trans_btn_submit2" />
+            android:transitionName="trans_btn_submit2"
+            android:layout_below="@id/login_btn_login"/>
 
-    </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/login_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_progressbar_white"
+            android:elevation="8dp">
+
+            <ProgressBar
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>
