@@ -20,6 +20,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.farrel.corporation.golekguru.dashboard.DashboardActivity;
+import com.farrel.corporation.golekguru.databases.SessionManager;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,9 +56,14 @@ public class LoginActivity extends AppCompatActivity {
         rlProgressBar.setVisibility(View.GONE);
     }
 
+
+    /**
+     * MOVE TO REGISTRATION PAGE
+     */
     public void callSignUpActivity(View view) {
         Intent signUpActivity = new Intent(LoginActivity.this, SignUpActivity.class);
 
+        // shared animations
         Pair[] pairs = new Pair[7];
         pairs[0] = new Pair<View, String>(tvAppName, "trans_app_name");
         pairs[1] = new Pair<View, String>(tvCaption, "trans_caption");
@@ -72,6 +79,10 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
+
+    /**
+     * USER LOGIN
+     */
     public void login(View view) {
         // check internet connection
         if (!isConnected(this)) {
@@ -85,32 +96,47 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         rlProgressBar.setVisibility(View.VISIBLE);
-        // get data
-        final String _username = tilUsername.getEditText().getText().toString().trim();
-        final String _password = tilPassword.getEditText().getText().toString().trim();
+        // get data from fields
+        final String _usernameLoginData = tilUsername.getEditText().getText().toString().trim();
+        final String _passwordLoginData = tilPassword.getEditText().getText().toString().trim();
 
-        // database
-        Query checkUser = FirebaseDatabase.getInstance().getReference("users").orderByChild("username").equalTo(_username);
+        // Check wether user exist or not in database
+        Query checkUser = FirebaseDatabase.getInstance().getReference("users").orderByChild("username").equalTo(_usernameLoginData);
 
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                // if username exist then get password
                 if (snapshot.exists()) {
                     tilUsername.setError(null);
                     tilUsername.setErrorEnabled(false);
+                    String systemPassword = snapshot.child(_usernameLoginData).child("password").getValue(String.class);
 
-                    String systemPassword = snapshot.child(_username).child("password").getValue(String.class);
-                    if (systemPassword.equals(_password)) {
+                    // if password exist and matches with user's password then get other fields from database
+                    if (systemPassword.equals(_passwordLoginData)) {
                         tilPassword.setError(null);
                         tilPassword.setErrorEnabled(false);
 
-                        String _fullName = snapshot.child(_username).child("fullName").getValue(String.class);
-                        String _email = snapshot.child(_username).child("email").getValue(String.class);
-                        String _phone = snapshot.child(_username).child("phone").getValue(String.class);
-                        String _birthDate = snapshot.child(_username).child("birthDate").getValue(String.class);
+                        // get user data from firebase database
+                        String _fullName = snapshot.child(_usernameLoginData).child("fullName").getValue(String.class);
+                        String _username = snapshot.child(_usernameLoginData).child("username").getValue(String.class);
+                        String _email = snapshot.child(_usernameLoginData).child("email").getValue(String.class);
+                        String _phone = snapshot.child(_usernameLoginData).child("phone").getValue(String.class);
+                        String _password = snapshot.child(_usernameLoginData).child("password").getValue(String.class);
+                        String _gender = snapshot.child(_usernameLoginData).child("gender").getValue(String.class);
+                        String _birthDate = snapshot.child(_usernameLoginData).child("birthDate").getValue(String.class);
+
+                        // create a session
+                        SessionManager sessionManager = new SessionManager(LoginActivity.this);
+                        sessionManager.createLoginSession(_fullName, _username, _email, _phone, _password, _gender, _birthDate);
 
                         rlProgressBar.setVisibility(View.GONE);
-                        Toast.makeText(LoginActivity.this, _fullName, Toast.LENGTH_SHORT).show();
+
+                        // intent to dashboard activity
+                        startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+//                        Toast.makeText(LoginActivity.this, _fullName, Toast.LENGTH_SHORT).show();
+                        
                     } else {
                         rlProgressBar.setVisibility(View.GONE);
                         Toast.makeText(LoginActivity.this, "Password tidak sesuai", Toast.LENGTH_SHORT).show();
@@ -128,7 +154,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     /**
@@ -161,7 +186,6 @@ public class LoginActivity extends AppCompatActivity {
                 });
         builder.show();
     }
-
 
 
     /**

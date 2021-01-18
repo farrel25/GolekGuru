@@ -1,4 +1,4 @@
-package com.farrel.corporation.golekguru;
+package com.farrel.corporation.golekguru.helperclasses;
 
 public class UserHelper {
     String fullName, username, email, phone, password, gender, birthDate;
