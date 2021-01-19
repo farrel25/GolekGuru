@@ -25,4 +25,12 @@
         <item name="android:windowContentTransitions">true</item>
     </style>
 
+    <style name="ThemeDashboard" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/textPrimary</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
 </resources>
