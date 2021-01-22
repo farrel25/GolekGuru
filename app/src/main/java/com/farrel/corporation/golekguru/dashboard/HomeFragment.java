@@ -7,9 +7,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.farrel.corporation.golekguru.R;
 import com.farrel.corporation.golekguru.databases.SessionManager;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +20,8 @@ import com.farrel.corporation.golekguru.databases.SessionManager;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+
+    private TextView tvUsername;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,14 +61,21 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-//        SessionManager sessionManager = new SessionManager();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        // get login session data
+        SessionManager sessionManager = new SessionManager(getActivity().getApplicationContext());
+        HashMap<String, String> session = sessionManager.getUserDetailFromSession();
+
+        tvUsername = view.findViewById(R.id.home_tv_username);
+        tvUsername.setText(session.get("username"));
+
+        return view;
     }
 }

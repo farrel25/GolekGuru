@@ -74,7 +74,7 @@
             android:layout_centerHorizontal="true"
             app:cardBackgroundColor="@color/yellow"
             app:cardCornerRadius="16dp"
-            app:cardElevation="12dp"
+            app:cardElevation="8dp"
             app:contentPadding="12dp">
 
             <LinearLayout
@@ -148,7 +148,7 @@
             android:background="@drawable/bg_rounded_top_white"
             android:orientation="vertical"
             android:paddingHorizontal="16dp"
-            android:paddingTop="72dp">
+            android:paddingTop="84dp">
 
 
         </LinearLayout>
