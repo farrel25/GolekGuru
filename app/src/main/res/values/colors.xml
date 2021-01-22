@@ -6,6 +6,7 @@
     <color name="textPrimary">#282948</color>
     <color name="yellow">#FEBE02</color>
     <color name="darkYellow">#695013</color>
+    <color name="yellowTransparent">#FFFCF2</color>
     <color name="white">#FFFFFF</color>
     <color name="grey">#F4F5F6</color>
 </resources>
